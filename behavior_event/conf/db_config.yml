@@ -1,0 +1,13 @@
+# databse config file
+dwh_db:
+    db: dwh
+    user: dwh_owner
+    passwd: dwh_owner
+    host: localhost
+    port: 5434
+event_db:
+    db: buzz_event
+    user: behavior_owner
+    passwd: behavior_owner
+    host: localhost
+    port: 5433
