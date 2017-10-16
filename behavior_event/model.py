@@ -64,8 +64,8 @@ class Client(BaseModel):
     title = CharField(null=False, unique=True)
     type = ClientTypeField(null=False)
     status = StatusField(null=False, default="PENDING")
-    inserted = DateTimeField(default=DT.now, null=False)
-    updated = DateTimeField(default=DT.now, null=False)
+    inserted = DateTimeField(default=DT.now(), null=False)
+    updated = DateTimeField(default=DT.now(), null=False)
 
     class Meta:
         db_table = "clients"
@@ -98,8 +98,8 @@ class EventType(BaseModel):
     behavior_type = BehaviorTypeField(null=False)
     frequency = EventFrequencyField(null=False)
     stubbed_extract_script = TextField(null=False)
-    inserted = DateTimeField(default=DT.now, null=False)
-    updated = DateTimeField(default=DT.now, null=False)
+    inserted = DateTimeField(default=DT.now(), null=False)
+    updated = DateTimeField(default=DT.now(), null=False)
 
     class Meta:
         db_table = "event_types"
@@ -131,8 +131,8 @@ class ClientConfig(BaseModel):
     product_code = CharField(null=True)
     # balance_range = DecimalField(max_digits=15, decimal_places=4, auto_round=True, null=True)
     balance_floor = DecimalField(max_digits=15, decimal_places=4, auto_round=True, null=True)
-    inserted = DateTimeField(default=DT.now, null=False)
-    updated = DateTimeField(default=DT.now, null=False)
+    inserted = DateTimeField(default=DT.now(), null=False)
+    updated = DateTimeField(default=DT.now(), null=False)
 
     class Meta:
         db_table = "client_configs"
@@ -148,8 +148,8 @@ class DestinationSystemField(EnumField):
 class Destination(BaseModel):
     id = IntegerField(primary_key=True, db_column="destination_id", sequence="destination_id_seq")
     destination_system = DestinationSystemField(null=False)
-    inserted = DateTimeField(default=DT.now, null=False)
-    updated = DateTimeField(default=DT.now, null=False)
+    inserted = DateTimeField(default=DT.now(), null=False)
+    updated = DateTimeField(default=DT.now(), null=False)
 
     class Meta:
         db_table = "destinations"
@@ -161,8 +161,8 @@ class DestinationConfig(BaseModel):
     destination_id = ForeignKeyField(Destination, related_name="configurations", to_field="destination_id", index=True)
     key = CharField(null=True)
     value = CharField(null=True)
-    inserted = DateTimeField(default=DT.now, null=False)
-    updated = DateTimeField(default=DT.now, null=False)
+    inserted = DateTimeField(default=DT.now(), null=False)
+    updated = DateTimeField(default=DT.now(), null=False)
 
     class Meta:
         db_table = "destination_configs"
@@ -185,8 +185,8 @@ class EventBatch(BaseModel):
     client_config_id = ForeignKeyField(ClientConfig, related_name="batches", to_field="client_config_id", index=True)
     status = BatchStatusField(null=False)
     delivery_system_event_batch_id = IntegerField(null=True)
-    inserted = DateTimeField(default=DT.now, null=False)
-    updated = DateTimeField(default=DT.now, null=False)
+    inserted = DateTimeField(default=DT.now(), null=False)
+    updated = DateTimeField(default=DT.now(), null=False)
 
     class Meta:
         db_table = "batches"
@@ -198,8 +198,8 @@ class EventBatchDelivery(BaseModel):
     event_batch_id = ForeignKeyField(EventBatch, related_name="deliveries", to_field="event_batch_id", index=True)
     status = BatchStatusField(null=False)
     status_message = TextField()
-    inserted = DateTimeField(default=DT.now, null=False)
-    updated = DateTimeField(default=DT.now, null=False)
+    inserted = DateTimeField(default=DT.now(), null=False)
+    updated = DateTimeField(default=DT.now(), null=False)
 
     class Meta:
         db_table = "event_batch_deliveries"
@@ -211,8 +211,8 @@ class Event(BaseModel):
     event_batch_id = ForeignKeyField(EventBatch, related_name="events", to_field="event_batch_id", index=True)
     quantity = DecimalField(max_digits=12, decimal_places=4, auto_round=True, null=False)
     event_timestamp = DateTimeField(null=False)
-    inserted = DateTimeField(default=DT.now, null=False)
-    updated = DateTimeField(default=DT.now, null=False)
+    inserted = DateTimeField(default=DT.now(), null=False)
+    updated = DateTimeField(default=DT.now(), null=False)
 
     class Meta:
         db_table = "events"
@@ -223,8 +223,8 @@ class EventBatchDeliveryErrorEvent(BaseModel):
     id = IntegerField(primary_key=True, db_column="event_batch_delivery_error_event_id", sequence="event_batch_delivery_error_event_id_seq")
     event_batch_delivery_id = ForeignKeyField(EventBatchDelivery, related_name="errors", to_field="event_batch_delivery_id", index=True)
     event_id = ForeignKeyField(Event, related_name="events", to_field="event_id", index=True)
-    inserted = DateTimeField(default=DT.now, null=False)
-    updated = DateTimeField(default=DT.now, null=False)
+    inserted = DateTimeField(default=DT.now(), null=False)
+    updated = DateTimeField(default=DT.now(), null=False)
 
     class Meta:
         db_table = "event_batch_delivery_error_events"
